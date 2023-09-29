@@ -1,101 +1,155 @@
 
-object bonbom {
+object bombon {
 	var peso = 15
 	
-	method precio()= 5
-	method sabor()= frutilla
-	method peso()= peso
-	method tieneGluten()=false
+	method precio() = 5
 	
-	method mordisco()  {peso = (peso * 0.8) - 1}
+	method peso() = peso
 	
+	method sabor() = "frutilla"
+	
+	method esLibreDeGluten() = true
+	
+	method recibirMordisco() {
+		peso = 0.max( (peso * 0.8) -1 )
+	}
 	
 }
-
 
 object alfajor {
 	var peso = 300
 	
 	method precio() = 12
-	method sabor()= chocolate
-	method peso()= peso
-	method tieneGluten()=true
 	
-	method mordisco() {peso = (peso * 0.8)}
+	method peso() = peso
+	
+	method sabor() = "chocolate"
+	
+	method esLibreDeGluten() = false
+	
+	method recibirMordisco() {
+		peso = peso * 0.8
+	}
 }
 
-object caramelo{
-	
+object caramelo {
 	var peso = 5
 	
-	method precio()= 1
-	method sabor() = frutilla
-	method peso()= peso
-	method tieneGluten()= true
+	method peso() = peso
 	
-	method mordisco(){peso = peso-1}
+	method precio() = 1
+	
+	method sabor() = "frutilla"
+	
+	method esLibreDeGluten() = true
+	
+	method recibirMordisco() {
+		peso = 0.max(peso - 1)
+	}
 }
 
-object chupetin{
-	
+object chupetin {
 	var peso = 7
 	
+	method peso() = peso
 	
-	method precio()= 2
-	method sabor()= naranja
-	method peso()= peso
-	method tieneGluten()= true
+	method precio() = 2
 	
-	method mordisco(){
-		if (peso > 2) (peso = peso * 0.9)
+	method sabor() = "naranja"
+	
+	method esLibreDeGluten() = true
+	
+	method recibirMordisco() {
+		if(peso >= 2) {
+			peso = peso * 0.9
+		}
 	}
 }
 
-object oblea{
+object oblea {
 	var peso = 250
-
 	
-	method precio()= 5
-	method sabor()= vainilla
-	method peso()= peso
-	method tieneGluten()= false
+	method peso() = peso
 	
-	method mordisco(){
-		if (peso > 70) (peso= peso *0.7) 
-		else (peso=peso*0.25)
+	method precio() = 5
+	
+	method sabor() = "vainilla"
+	
+	method esLibreDeGluten() = false
+	
+	method recibirMordisco() {
+		if(peso > 70) {
+			peso = peso * 0.5
+		}
+		else {
+			peso = peso * 0.75
+		}
 	}
 }
 
-object chocolatin{
-	var property peso 
+object chocolatin {
+	var pesoInicial
+	var peso
 	
-	method precio()= 0.50 * peso
-	method sabor()= chocolate
-	method tieneGluten()=true
+	method precio() = pesoInicial * 0.5
 	
-	method mordisco(){peso= peso-2}
-}
-
-object golosinaBaniana{
+	method peso() = peso
 	
-	method baniarGolosina(unaGolosina){
-		
+	method sabor() = "chocolate"
+	
+	method esLibreDeGluten() = false
+	
+	method pesoInicial(unPeso) {
+		pesoInicial = unPeso
+		peso = unPeso
 	}
-	method precio(){}
-	method sabor(){}
-	method peso(){}
-	method tieneGluten(){}
+	
+	method pesoInicial() = pesoInicial
+	
+	method recibirMordisco() {
+		peso = 0.max(peso - 2)
+	}
 }
 
-object pastilla{
-	var peso = 5
-	var property tieneGluten
-	//const sabor = (frutilla, chocolate, naranja)
+object golosinaBaniada {
+	var property golosinaDeBase
+	var baniado = 4
 	
-	method precio() = if (not tieneGluten ) 7 else 10
-	method peso()= peso
+	method peso() = golosinaDeBase.peso() + baniado
 	
-	method sabor()
+	method baniado() = baniado
+	
+	method precio() = golosinaDeBase.precio() + 2
+	
+	method sabor() = golosinaDeBase.sabor()
+	
+	method esLibreDeGluten() = golosinaDeBase.esLibreDeGluten()
+	
+	method recibirMordisco() {
+		golosinaDeBase.recibirMordisco()
+		baniado = 0.max(baniado - 2)
+	}
+}
+
+	
+object tuttiFrutti {
+	var property esLibreDeGluten 
+	var cantidadMordidas = 0
+	const sabores = ["frutilla", "chocolate", "naranja"]
+
+	method precio() = if(esLibreDeGluten)10 else 7
+
+	method sabor() = sabores.get((cantidadMordidas) % 3)
+	
+	method peso() = 5
+
+	method recibirMordisco() = cantidadMordidas ++ 
 	
 }
+
+
+
+
+
+
 
